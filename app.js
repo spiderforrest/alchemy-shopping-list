@@ -5,7 +5,7 @@ import {
     signOutUser,
     checkAuth,
     fetchList,
-    // addItem,
+    addItem,
     // clearList,
     // buyItem,
 } from './fetch-utils.js';
@@ -15,20 +15,27 @@ import { renderItem } from './render-utils.js';
 const resetButton = document.getElementById('reset-button');
 const logoutButton = document.getElementById('logout-button');
 const itemForm = document.getElementById('item-form');
-const itemLi = document.getElementById('item-list');
-let itemArray = [];
+const itemsDiv = document.getElementById('items-div');
+const form = document.getElementById('input');
 
 self.addEventListener('load', async () => {
     checkAuth();
     await displayItems();
 });
 
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    await addItem(data.get('name'));
+    await displayItems();
+});
+
 async function displayItems() {
     // fetch, reset, and render loop
-    itemArray = await fetchList();
-    itemLi.innerHTML = '';
+    const itemArray = await fetchList();
+    itemsDiv.innerHTML = '';
     for (const item of itemArray) {
         const target = renderItem(item);
-        itemLi.append(target);
+        itemsDiv.append(target);
     }
 }
