@@ -1,14 +1,7 @@
 /* Imports */
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
-import {
-    signOutUser,
-    checkAuth,
-    fetchList,
-    addItem,
-    clearList,
-    // buyItem,
-} from './fetch-utils.js';
+import { signOutUser, checkAuth, fetchList, addItem, clearList, buyItem } from './fetch-utils.js';
 import { renderItem } from './render-utils.js';
 
 // defines
@@ -44,6 +37,11 @@ async function displayItems() {
     itemsDiv.innerHTML = '';
     for (const item of itemArray) {
         const target = renderItem(item);
+        // make clicking strikethrough it
+        target.addEventListener('click', async () => {
+            target.classList.add('bought');
+            buyItem(item.id);
+        });
         itemsDiv.append(target);
     }
 }

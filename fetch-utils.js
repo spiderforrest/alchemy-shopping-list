@@ -63,3 +63,12 @@ export async function clearList() {
         .match({ user_id: client.auth.user().id });
     return checkError(response);
 }
+
+export async function buyItem(id) {
+    const response = await client
+        .from('shopping_list')
+        .update({ bought: true })
+        .match({ user_id: client.auth.user().id, id: id })
+        .single();
+    return checkError(response);
+}
