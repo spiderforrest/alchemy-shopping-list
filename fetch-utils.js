@@ -55,3 +55,11 @@ export async function addItem(name) {
         .insert({ name: name, bought: false, user_id: client.auth.user().id });
     return checkError(response);
 }
+
+export async function clearList() {
+    const response = await client
+        .from('shopping_list')
+        .delete()
+        .match({ user_id: client.auth.user().id });
+    return checkError(response);
+}
