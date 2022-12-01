@@ -29,6 +29,7 @@ form.addEventListener('submit', async (e) => {
     const data = new FormData(form);
     await addItem(data.get('name'));
     await displayItems();
+    form.reset();
 });
 
 resetButton.addEventListener('click', async () => {
