@@ -9,7 +9,7 @@ export function renderItem(item) {
     // style
     div.classList.add('list-item');
     // for scoring bought items
-    if (item.marked === true) div.classList.add('bought');
+    if (item.bought === true) div.classList.add('bought');
 
     // append and return
     div.append(nameH);
